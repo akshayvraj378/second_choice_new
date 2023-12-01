@@ -1,24 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:second_choice_new/screens/registration%20page.dart';
-
 import 'forgot_password.dart';
-
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
-
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
-
 class _LoginPageState extends State<LoginPage> {
   final loginkey = GlobalKey<FormState>();
   bool pass = false;
   var passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery
-        .of(context)
-        .size;
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Form(
         key: loginkey,
@@ -30,8 +24,8 @@ class _LoginPageState extends State<LoginPage> {
                     image: AssetImage('assets/images/img2.png'))),
             height: size.height,
             width: size.width,
-            child: ListView(
-              children: [Column(children: [
+            child: ListView(children: [
+              Column(children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 290),
                   child: Container(
@@ -51,7 +45,8 @@ class _LoginPageState extends State<LoginPage> {
                             child: Center(
                               child: Text('Login',
                                   style: TextStyle(
-                                      fontWeight: FontWeight.w900, fontSize: 30)),
+                                      fontWeight: FontWeight.w900,
+                                      fontSize: 30)),
                             ),
                           ),
                           Padding(
@@ -68,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
                                     return 'Please enter your email';
                                   }
                                   if (!RegExp(
-                                      r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
+                                          r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
                                       .hasMatch(value)) {
                                     return "Enter a valid email address";
                                   }
@@ -120,35 +115,46 @@ class _LoginPageState extends State<LoginPage> {
                           onPressed: () {
                             Navigator.of(context).pushAndRemoveUntil(
                                 MaterialPageRoute(
-                                  builder: (context) => ForgotPassword(),), (
-                                route) => false);
-                          }, child: Text('Forgot password')),
+                                  builder: (context) => ForgotPassword(),
+                                ),
+                                (route) => false);
+                          },
+                          child: Text('Forgot password')),
                       ElevatedButton(
                           style: ButtonStyle(
-                              fixedSize: MaterialStatePropertyAll(Size(100, 40)),
+                              fixedSize:
+                                  MaterialStatePropertyAll(Size(100, 40)),
                               backgroundColor:
-                              MaterialStatePropertyAll(Colors.blue)),
+                                  MaterialStatePropertyAll(Colors.blue)),
                           onPressed: () {
                             loginkey.currentState!.validate();
                           },
                           child: Text('Login')),
                     ],
                   ),
-                ), Padding(
+                ),
+                Padding(
                   padding: const EdgeInsets.all(30),
-                  child: Row(mainAxisAlignment: MainAxisAlignment.center,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text('Do not have an account?'),
-                      TextButton(onPressed: () {
-                        Navigator.pushAndRemoveUntil(context,
-                            MaterialPageRoute(
-                              builder: (context) => const RegistrationPage(),), (
-                                route) => false);
-                      }, child: Text('Register'))
-                    ],),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const RegistrationPage(),
+                                ),
+                                (route) => false);
+                          },
+                          child: Text('Register'))
+                    ],
+                  ),
                 )
-              ]),]
-            ),
+              ]),
+            ]),
           ),
         ]),
       ),
