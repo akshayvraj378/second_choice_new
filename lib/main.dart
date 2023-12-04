@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:second_choice_new/screens/bookingpage.dart';
 import 'package:second_choice_new/screens/home.dart';
 import 'package:second_choice_new/screens/homemain.dart';
 import 'package:second_choice_new/screens/login_page.dart';
+import 'package:second_choice_new/screens/registration%20page.dart';
 import 'package:second_choice_new/screens/splash_screen.dart';
 import 'package:second_choice_new/trash.dart';
 
@@ -15,7 +17,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(home: trashing(),
+    return  MaterialApp(home: LoginPage(),
     );
   }
 }

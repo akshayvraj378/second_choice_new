@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'bookingpage.dart';
+
 class Details extends StatefulWidget {
   const Details({Key? key}) : super(key: key);
 
@@ -7,15 +10,35 @@ class Details extends StatefulWidget {
 }
 
 class _DetailsState extends State<Details> {
+  void makePhoneCall(String phoneNumber) async {
+    String url = 'tel:$phoneNumber';
+
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
+      appBar: AppBar(actions: [IconButton(onPressed: () {
+
+      }, icon: Icon(Icons.favorite_border)), IconButton(onPressed: () {
+
+      }, icon: Icon(Icons.share))
+      ],
+          backgroundColor: Colors.black,
+          foregroundColor: Colors.white,
+          centerTitle: true,
+          title: Text('Vehicle Detail')),
       body: SingleChildScrollView(
         child: Column(
-          children: [Text('Vehicle Details',style: TextStyle(color: Colors.white)),
+          children: [
             Padding(
-              padding: const EdgeInsets.only(top: 30),
+              padding: const EdgeInsets.only(top: 15),
               child: SizedBox(
                 height: 300,
                 width: double.infinity,
@@ -72,8 +95,7 @@ class _DetailsState extends State<Details> {
                           ),
                           Row(
                             children: [
-                              Icon(Icons.speed_rounded,
-                                  color: Colors.brown),
+                              Icon(Icons.speed_rounded, color: Colors.brown),
                               Text('59000 KM')
                             ],
                           ),
@@ -120,8 +142,7 @@ class _DetailsState extends State<Details> {
                         children: [
                           Column(
                             children: [
-                              Icon(Icons.calendar_month,
-                                  color: Colors.brown),
+                              Icon(Icons.calendar_month, color: Colors.brown),
                               Text('2014'),
                               Text('Year')
                             ],
@@ -136,8 +157,7 @@ class _DetailsState extends State<Details> {
                           ),
                           Column(
                             children: [
-                              Icon(Icons.speed_outlined,
-                                  color: Colors.brown),
+                              Icon(Icons.speed_outlined, color: Colors.brown),
                               Text('59000'),
                               Text('Kms')
                             ],
@@ -168,8 +188,7 @@ class _DetailsState extends State<Details> {
                           ),
                           Column(
                             children: [
-                              Icon(Icons.speed_outlined,
-                                  color: Colors.brown),
+                              Icon(Icons.speed_outlined, color: Colors.brown),
                               Text('__'),
                               Text('Mileage')
                             ],
@@ -200,8 +219,7 @@ class _DetailsState extends State<Details> {
                           ),
                           Column(
                             children: [
-                              Icon(Icons.ad_units_sharp,
-                                  color: Colors.brown),
+                              Icon(Icons.ad_units_sharp, color: Colors.brown),
                               Text('BL6'),
                               Text('Polution')
                             ],
@@ -223,7 +241,8 @@ class _DetailsState extends State<Details> {
               height: 400,
               child: Card(
                 color: Colors.white70,
-                margin: EdgeInsets.all(45.0),
+                margin:
+                EdgeInsets.only(left: 40, top: 30, bottom: 30, right: 40),
                 child: Padding(
                   padding: EdgeInsets.all(2.0),
                   child: GridView.builder(
@@ -250,8 +269,125 @@ class _DetailsState extends State<Details> {
                   ),
                 ),
               ),
-            ),
+            ),SizedBox(height: 300,width: double.infinity,child: MyTabbedCard(),)
           ],
+        ),
+      ),
+      bottomNavigationBar: NavigationBar(
+          height: 70,
+          backgroundColor: Colors.black,
+          destinations: [
+            SizedBox(
+              width: double.infinity,
+              height: double.infinity,
+              child: TextButton(
+                  style: ButtonStyle(
+                      side: MaterialStatePropertyAll(BorderSide.none),
+                      foregroundColor: MaterialStatePropertyAll(Colors.black),
+                      backgroundColor:
+                      MaterialStatePropertyAll(Colors.teal[300])),
+                  onPressed: () {
+                    makePhoneCall('9744151527');
+                  },
+                  child: Text('Lets Talk')),
+            ),
+            SizedBox(
+                height: double.infinity,
+                width: double.infinity,
+                child: TextButton(
+                    style: ButtonStyle(
+                        foregroundColor: MaterialStatePropertyAll(Colors.black),
+                        backgroundColor:
+                        MaterialStatePropertyAll(Colors.grey[600])),
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => Book(),));
+                    },
+                    child: Text('Book Now')))
+          ]),
+    );
+  }
+}
+class MyTabbedCard extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20,right: 35,top: 15,left: 35),
+      child: Card(color: Colors.white70,
+        elevation: 1.0,
+        child: DefaultTabController(
+          length: 3, // Number of tabs
+          child: SizedBox(
+            child: Column(
+              children: [
+                TabBar(
+                  labelColor: Colors.black,
+                  tabs: [
+                    Tab(text: 'Feature'),
+                    Tab(text: 'Specifications'),
+                    Tab(text: 'Overview'),
+                  ],
+                ),
+                Expanded(
+                  child: TabBarView(
+                    children: [
+                      // Content for Tab 1
+                      SizedBox(
+                          width: double.infinity,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              SingleChildScrollView(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(6.0),
+                                      child: Text('Central locking'),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(6.0),
+                                      child: Text('Driver air Bag'),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(6.0),
+                                      child: Text('Anti Lock Barking System'),
+                                    ), Padding(
+                                      padding: const EdgeInsets.all(6.0),
+                                      child: Text('Power door lock'),
+                                    ), Padding(
+                                      padding: const EdgeInsets.all(6.0),
+                                      child: Text('Adjustable seats'),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(6.0),
+                                      child: Text('Driver air Bag'),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(6.0),
+                                      child: Text('Crash sensor'),
+                                    ), Padding(
+                                      padding: const EdgeInsets.all(6.0),
+                                      child: Text('Air Conditioner'),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          )),
+                      // Content for Tab 2
+                      Center(
+                        child: Text('Content for Tab 2'),
+                      ),
+                      // Content for Tab 3
+                      Center(
+                        child: Text('Content for Tab 3'),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

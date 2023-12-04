@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:second_choice_new/screens/registration%20page.dart';
 import 'forgot_password.dart';
+import 'homemain.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
+
 class _LoginPageState extends State<LoginPage> {
   final loginkey = GlobalKey<FormState>();
   bool pass = false;
   var passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery
+        .of(context)
+        .size;
     return Scaffold(
       body: Form(
         key: loginkey,
@@ -63,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                                     return 'Please enter your email';
                                   }
                                   if (!RegExp(
-                                          r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
+                                      r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
                                       .hasMatch(value)) {
                                     return "Enter a valid email address";
                                   }
@@ -117,18 +124,25 @@ class _LoginPageState extends State<LoginPage> {
                                 MaterialPageRoute(
                                   builder: (context) => ForgotPassword(),
                                 ),
-                                (route) => false);
+                                    (route) => false);
                           },
                           child: Text('Forgot password')),
                       ElevatedButton(
                           style: ButtonStyle(
                               fixedSize:
-                                  MaterialStatePropertyAll(Size(100, 40)),
+                              MaterialStatePropertyAll(Size(100, 40)),
                               backgroundColor:
-                                  MaterialStatePropertyAll(Colors.blue)),
+                              MaterialStatePropertyAll(Colors.blue)),
                           onPressed: () {
                             loginkey.currentState!.validate();
+                            if (loginkey.currentState!.validate()) {
+                              Navigator.pushAndRemoveUntil(context,
+                                  MaterialPageRoute(
+                                    builder: (context) => HomePage(),), (
+                                      route) => false);
+                            }
                           },
+
                           child: Text('Login')),
                     ],
                   ),
@@ -145,9 +159,9 @@ class _LoginPageState extends State<LoginPage> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      const RegistrationPage(),
+                                  const RegistrationPage(),
                                 ),
-                                (route) => false);
+                                    (route) => false);
                           },
                           child: Text('Register'))
                     ],

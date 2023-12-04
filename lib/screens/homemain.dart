@@ -1,6 +1,7 @@
-
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+
+import 'home.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -28,29 +29,31 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(backgroundColor: Colors.black,
+      home: Scaffold(
+        backgroundColor: Colors.black,
         key: _scaffoldKey,
         appBar: CustomAppBar(
           scaffoldKey: _scaffoldKey,
           preferredSize: const Size.fromHeight(70),
         ),
-        body:  ListView.builder(
+        body: ListView.builder(
           itemCount: carName.length,
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) =>
-                //     const Details(), // Details widget for car details
-                //   ),
-                // );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        const Details(), // Details widget for car details
+                  ),
+                );
               },
               child: Card(
                 color: Colors.white70,
                 elevation: 8,
-                margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 40),
+                margin:
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 40),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
                 ),
@@ -58,7 +61,7 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     ClipRRect(
                       borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(10)),
+                          BorderRadius.vertical(top: Radius.circular(10)),
                       child: SizedBox(
                         height: 200,
                         width: double.infinity,
@@ -145,29 +148,30 @@ class _HomePageState extends State<HomePage> {
           },
         ),
         drawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: [
-              DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Colors.blue,
+          child: Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: BoxDecoration(
+                image: DecorationImage(fit: BoxFit.fill,
+                    image: AssetImage('assets/images/drawerback.jpg'))),
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                ListTile(tileColor: Colors.redAccent,
+                  title: Text('Item 1',style: TextStyle(color: Colors.white)),
+                  onTap: () {
+                    // Add functionality when Drawer item 1 is selected
+                  },
                 ),
-                child: Text('Drawer Header'),
-              ),
-              ListTile(
-                title: Text('Item 1'),
-                onTap: () {
-                  // Add functionality when Drawer item 1 is selected
-                },
-              ),
-              ListTile(
-                title: Text('Item 2'),
-                onTap: () {
-                  // Add functionality when Drawer item 2 is selected
-                },
-              ),
-              // Add more items as needed
-            ],
+                ListTile(tileColor: Colors.white,shape: RoundedRectangleBorder(),
+                  title: Text('Item 2'),
+                  onTap: () {
+                    // Add functionality when Drawer item 2 is selected
+                  },
+                ),
+                // Add more items as needed
+              ],
+            ),
           ),
         ),
         bottomNavigationBar: CurvedNavigationBar(
@@ -184,13 +188,10 @@ class _HomePageState extends State<HomePage> {
             // Handle bottom navigation item tap
           },
         ),
-
       ),
     );
   }
 }
-
-
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
@@ -205,14 +206,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       leading: Builder(
-        builder: (context) =>
-            IconButton(
-              onPressed: () {
-                scaffoldKey.currentState?.openDrawer();
-              },
-              icon: Icon(Icons.menu),
-              color: Colors.white,
-            ),
+        builder: (context) => IconButton(
+          onPressed: () {
+            scaffoldKey.currentState?.openDrawer();
+          },
+          icon: Icon(Icons.menu),
+          color: Colors.white,
+        ),
       ),
       backgroundColor: Colors.transparent,
       shape: const RoundedRectangleBorder(
