@@ -24,7 +24,7 @@ class _SetiState extends State<Seti> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black54,
+      backgroundColor: Colors.black,
       appBar: AppBar(
           centerTitle: true,
           backgroundColor: Colors.black54,
@@ -177,7 +177,7 @@ class _SetiState extends State<Seti> {
 
                     },
                       tileColor: Colors.grey[400],
-                      title: Text('Help'),
+                      title: Text('Help & Service'),
                       trailing: Icon(Icons.navigate_next_outlined),
                     ),
                     ListTile(onTap: () {
@@ -188,7 +188,7 @@ class _SetiState extends State<Seti> {
                               bottomRight: Radius.circular(12),
                               bottomLeft: Radius.circular(12))),
                       tileColor: Colors.grey,
-                      title: Text('About'),
+                      title: Text('About us'),
                       trailing: Icon(Icons.navigate_next_outlined),
                     ),
                   ],

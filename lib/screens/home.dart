@@ -23,7 +23,7 @@ class _DetailsState extends State<Details> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.black87,
       appBar: AppBar(actions: [IconButton(onPressed: () {
 
       }, icon: Icon(Icons.favorite_border)), IconButton(onPressed: () {
@@ -67,7 +67,7 @@ class _DetailsState extends State<Details> {
               padding: const EdgeInsets.only(
                   bottom: 13, top: 0, left: 40, right: 40),
               child: Card(
-                color: Colors.white70,
+                color: Colors.white,
                 child: Column(
                   children: [
                     Padding(
@@ -75,7 +75,6 @@ class _DetailsState extends State<Details> {
                       child: Text(
                         'Jeep W186X LandSUV',
                         style: TextStyle(
-                          backgroundColor: Colors.transparent,
                           fontWeight: FontWeight.w900,
                           fontSize: 20,
                         ),
@@ -206,14 +205,14 @@ class _DetailsState extends State<Details> {
                               Icon(Icons.network_ping_rounded,
                                   color: Colors.brown),
                               Text('4461'),
-                              Text('Engine cc')
+                              Text('Engine')
                             ],
                           ),
                           Column(
                             children: [
                               Icon(Icons.verified_user_outlined,
                                   color: Colors.brown),
-                              Text('25/07/2025'),
+                              Text('25/07/25'),
                               Text('Insurance')
                             ],
                           ),
@@ -240,7 +239,7 @@ class _DetailsState extends State<Details> {
               width: double.infinity,
               height: 400,
               child: Card(
-                color: Colors.white70,
+                color: Colors.grey[350],
                 margin:
                 EdgeInsets.only(left: 40, top: 30, bottom: 30, right: 40),
                 child: Padding(
@@ -312,8 +311,7 @@ class MyTabbedCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20,right: 35,top: 15,left: 35),
-      child: Card(color: Colors.white70,
-        elevation: 1.0,
+      child: Card(color: Colors.white,
         child: DefaultTabController(
           length: 3, // Number of tabs
           child: SizedBox(

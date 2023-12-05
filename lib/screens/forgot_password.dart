@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'login_page.dart';
+import 'Log_in_page.dart';
+
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({super.key});
@@ -71,7 +72,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => LoginPage(),
+                            builder: (context) => Loginpageui(),
                           ),
                           (route) => false);
                     },

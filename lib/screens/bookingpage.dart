@@ -8,11 +8,10 @@ class Book extends StatefulWidget {
 }
 
 class _BookState extends State<Book> {
-  String dropdownvalue = 'District';
+  String Dist = 'District';
 
   // List of items in our dropdown menu
   var items = [
-    'District',
     'Kasargod',
     'kanur',
     'Kozhikode',
@@ -69,7 +68,8 @@ class _BookState extends State<Book> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            Card(
+                            Card(color: Colors.blueGrey[200],
+
                               child: Column(children: [
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
@@ -165,7 +165,7 @@ class _BookState extends State<Book> {
                       padding: const EdgeInsets.only(
                           left: 25, top: 7, bottom: 8, right: 25),
                       child: ListTile(
-                        leading: Text('District',
+                        leading: Text('$Dist',
                             style: TextStyle(color: Colors.white)),
                         tileColor: Colors.white24,
                         shape: OutlineInputBorder(),
@@ -174,7 +174,7 @@ class _BookState extends State<Book> {
                           iconSize: 40,
                           style: TextStyle(color: Colors.white),
                           borderRadius: BorderRadius.circular(27),
-                          value: dropdownvalue,
+                   //       value: dropdownvalue,
                           icon: const Icon(Icons.keyboard_arrow_down),
                           items: items.map((String items) {
                             return DropdownMenuItem(
@@ -185,7 +185,8 @@ class _BookState extends State<Book> {
                           }).toList(),
                           onChanged: (String? newValue) {
                             setState(() {
-                              dropdownvalue = newValue!;
+                            //  dropdownvalue = newValue!;
+                              Dist=newValue!;
                             });
                           },
                         ),
@@ -196,7 +197,7 @@ class _BookState extends State<Book> {
                           left: 25, top: 7, bottom: 8, right: 25),
                       child: TextFormField(
                         decoration: InputDecoration(
-                            hintText: 'Pan Number*',
+                            hintText: 'PAN Number*',
                             filled: true,
                             fillColor: Colors.white,
                             border: OutlineInputBorder()),

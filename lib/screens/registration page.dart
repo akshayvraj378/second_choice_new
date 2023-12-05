@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'login_page.dart';
+import 'Log_in_page.dart';
+
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({super.key});
@@ -185,7 +186,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                 Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => const LoginPage(),
+                                      builder: (context) => const Loginpageui(),
                                     ),
                                     (route) => false);
                               },

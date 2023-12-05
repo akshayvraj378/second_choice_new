@@ -1,7 +1,11 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:second_choice_new/screens/profilepage.dart';
+import 'package:second_choice_new/screens/settings_page.dart';
 
+import '../trash.dart';
 import 'home.dart';
+import 'mainpagesnavi.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -11,8 +15,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  bool isFavorite = false;
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final List<String> carName = [
     'Jeep W186X LandSUV',
     'LAND ROVER X800',
@@ -50,7 +55,7 @@ class _HomePageState extends State<HomePage> {
                 );
               },
               child: Card(
-                color: Colors.white70,
+                color: Colors.lightBlue[50],
                 elevation: 8,
                 margin:
                     const EdgeInsets.symmetric(vertical: 15, horizontal: 40),
@@ -133,10 +138,22 @@ class _HomePageState extends State<HomePage> {
                               )
                             ],
                           ),
-                          Icon(
-                            Icons.favorite_border,
-                            color: Color.fromARGB(000066, 0, 0, 102),
-                          )
+                          IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  isFavorite =
+                                      !isFavorite; // Toggle the favorite status
+                                });
+                              },
+                              icon: Icon(
+                                isFavorite
+                                    ? Icons.favorite
+                                    : Icons.favorite_border,
+                                color: isFavorite
+                                    ? Colors.red[400]
+                                    : Color.fromARGB(000066, 0, 0, 102),
+                                size: 30,
+                              ))
                         ],
                       ),
                     )
@@ -148,46 +165,93 @@ class _HomePageState extends State<HomePage> {
           },
         ),
         drawer: Drawer(
-          child: Container(
-            width: double.infinity,
-            height: double.infinity,
-            decoration: BoxDecoration(
-                image: DecorationImage(fit: BoxFit.fill,
-                    image: AssetImage('assets/images/drawerback.jpg'))),
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: [
-                ListTile(tileColor: Colors.redAccent,
-                  title: Text('Item 1',style: TextStyle(color: Colors.white)),
-                  onTap: () {
-                    // Add functionality when Drawer item 1 is selected
-                  },
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.indigo[100],
                 ),
-                ListTile(tileColor: Colors.white,shape: RoundedRectangleBorder(),
-                  title: Text('Item 2'),
-                  onTap: () {
-                    // Add functionality when Drawer item 2 is selected
-                  },
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Danial Disooza',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    CircleAvatar(
+                      radius: 40,
+                      backgroundImage: AssetImage('assets/images/profile.jpg'),
+                    ),
+                  ],
                 ),
-                // Add more items as needed
-              ],
-            ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: ListTile(
+                  onTap: () {},
+                  leading: Icon(Icons.home, color: Colors.green[100], size: 30),
+                  title: Text('Home',
+                      style: TextStyle(color: Colors.black, fontSize: 17)),
+                ),
+              ),
+              ListTile(
+                onTap: () {},
+                leading:
+                    Icon(Icons.settings, color: Colors.brown[100], size: 30),
+                title: Text('Settings',
+                    style: TextStyle(color: Colors.black, fontSize: 17)),
+              ),
+              ListTile(
+                onTap: () {},
+                leading: Icon(Icons.person,
+                    color: Colors.indigoAccent[100], size: 30),
+                title: Text('Profile',
+                    style: TextStyle(color: Colors.black, fontSize: 17)),
+              ),
+              ListTile(
+                onTap: () {},
+                leading: Icon(Icons.privacy_tip_outlined,
+                    color: Colors.red[100], size: 30),
+                title: Text('About Us',
+                    style: TextStyle(color: Colors.black, fontSize: 17)),
+              ),
+              ListTile(
+                onTap: () {},
+                leading: Icon(Icons.star_border_rounded,
+                    color: Colors.orange[100], size: 30),
+                title: Text('Share your experience',
+                    style: TextStyle(color: Colors.black, fontSize: 17)),
+              ),
+              ListTile(
+                onTap: () {},
+                leading: Icon(Icons.live_help_outlined,
+                    color: Colors.purple[100], size: 30),
+                title: Text('Help line',
+                    style: TextStyle(color: Colors.black, fontSize: 17)),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 18,right: 18,top: 90),
+                child: ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStatePropertyAll(Colors.teal),
+                        fixedSize: MaterialStatePropertyAll(Size(30, 30))),
+                    onPressed: () {},
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [Icon(Icons.login_outlined), Text('Logout')],
+                    )),
+              )
+
+// Add more list items as needed
+            ],
           ),
         ),
-        bottomNavigationBar: CurvedNavigationBar(
-          color: Colors.grey,
-          backgroundColor: Colors.black38,
-          height: 55,
-          items: const <Widget>[
-            Icon(Icons.call),
-            Icon(Icons.attach_money),
-            Icon(Icons.person_outline),
-            Icon(Icons.favorite_border),
-          ],
-          onTap: (index) {
-            // Handle bottom navigation item tap
-          },
-        ),
+        bottomNavigationBar: MyHomePage(),
       ),
     );
   }
@@ -224,6 +288,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Padding(
         padding: const EdgeInsets.only(left: 30),
         child: TextField(
+          style: TextStyle(color: Colors.white),
           decoration: InputDecoration(
             border: InputBorder.none,
             hintText: "Tell us your dream",
