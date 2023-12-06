@@ -1,99 +1,239 @@
-// Import necessary packages
+
+
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Form Validation'),
-        ),
-        body: MyForm(),
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
       ),
+      home: const MyHomePage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
 
-class MyForm extends StatefulWidget {
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key}) : super(key: key);
+
   @override
-  _MyFormState createState() => _MyFormState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyFormState extends State<MyForm> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  // Controllers for text fields
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _addressController = TextEditingController();
-  final TextEditingController _pincodeController = TextEditingController();
-  final TextEditingController _panController = TextEditingController();
-  final TextEditingController _aadhaarController = TextEditingController();
-  final TextEditingController _advanceAmountController = TextEditingController();
-
-  String? dropdownValue;
-  String? district;
+class _MyHomePageState extends State<MyHomePage> {
+  void _showBlurMenu() {
+    final overlayState = Overlay.of(context);
+    OverlayEntry? overlayEntry;
+    overlayEntry = OverlayEntry(builder: (context) {
+      return GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () {
+          overlayEntry?.remove();
+        },
+        child: BlurMenu(
+          width: 300,
+          height: 300,
+          itemHeight: (300 - 32) / 4,
+          onSelect: (_) => Future.delayed(
+            const Duration(milliseconds: 150),
+                () => overlayEntry?.remove(),
+          ),
+          items: const [
+            BlurMenuItem('On Sale', value: 'on_sale', selected: true),
+            BlurMenuItem('Created', value: 'created'),
+            BlurMenuItem('About Me', value: 'about_me'),
+            BlurMenuItem('Liked', value: 'liked'),
+          ],
+        ),
+      );
+    });
+    overlayState!.insert(overlayEntry);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: ListView(
-        padding: EdgeInsets.all(8.0),
-        children: [
-          TextFormField(
-            controller: _nameController,
-            decoration: InputDecoration(
-              hintText: 'Name*',
-              filled: true,
-              fillColor: Colors.white,
-              border: OutlineInputBorder(),
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            Expanded(
+              child: GridView.count(
+                mainAxisSpacing: 16,
+                crossAxisSpacing: 16,
+                crossAxisCount: 2,
+                children: [
+                  PictureCard(
+                      onPressed: _showBlurMenu,
+                      asset: 'assets/images/profile.jpg',
+                      width: 300,
+                      height: 300),
+                  PictureCard(
+                      onPressed: _showBlurMenu,
+                      asset: 'assets/images/profile.jpg',
+                      width: 300,
+                      height: 300),    PictureCard(
+                      onPressed: _showBlurMenu,
+                      asset: 'assets/images/profile.jpg',
+                      width: 300,
+                      height: 300),
+                  PictureCard(
+                      onPressed: _showBlurMenu,
+                      asset: 'assets/images/profile.jpg',
+                      width: 300,
+                      height: 300),
+                  PictureCard(
+                      onPressed: _showBlurMenu,
+                      asset: 'assets/images/profile.jpg',
+                      width: 300,
+                      height: 300),
+                  PictureCard(
+                      onPressed: _showBlurMenu,
+                      asset: 'assets/images/profile.jpg',
+                      width: 300,
+                      height: 300),
+                ],
+              ),
             ),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter your name';
-              }
-              return null;
-            },
-          ),
-          // Other TextFormField widgets for Address, Pincode, PAN Number, AADHAAR Number, Advance Amount, and other widgets as in your original code
-
-          ElevatedButton(
-            onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                // Form is valid, perform necessary actions
-                // Access field values using controllers:
-                String name = _nameController.text;
-                String address = _addressController.text;
-                String pincode = _pincodeController.text;
-                String panNumber = _panController.text;
-                String aadhaarNumber = _aadhaarController.text;
-                String advanceAmount = _advanceAmountController.text;
-
-                // Perform actions with validated data here
-              }
-            },
-            child: Text('Submit'),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
+}
+
+class PictureCard extends StatelessWidget {
+  final double width;
+  final double height;
+  final String asset;
+  final VoidCallback onPressed;
+  const PictureCard({
+    Key? key,
+    required this.asset,
+    required this.width,
+    required this.height,
+    required this.onPressed,
+  }) : super(key: key);
 
   @override
-  void dispose() {
-    // Clean up the controllers when the widget is removed from the widget tree
-    _nameController.dispose();
-    _addressController.dispose();
-    _pincodeController.dispose();
-    _panController.dispose();
-    _aadhaarController.dispose();
-    _advanceAmountController.dispose();
-    super.dispose();
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            image: AssetImage(asset),
+          ),
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: ElevatedButton(
+          onPressed: onPressed,
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(Colors.transparent),
+            elevation: MaterialStateProperty.all(0),
+          ),
+          child: Container(),
+        ),
+      ),
+    );
+  }
+}
+
+class BlurMenu extends StatelessWidget {
+  final double width;
+  final double height;
+  final double itemHeight;
+  final List<BlurMenuItem> items;
+  final void Function(String value) onSelect;
+  const BlurMenu(
+      {Key? key,
+        required this.items,
+        required this.onSelect,
+        required this.width,
+        required this.height,
+        this.itemHeight = 64})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(16),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(
+            sigmaX: 5.0,
+            sigmaY: 5.0,
+          ),
+          child: Material(
+            type: MaterialType.transparency,
+            child: Container(
+              alignment: Alignment.center,
+              color: Colors.black45,
+              width: width,
+              height: height,
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  itemExtent: itemHeight,
+                  shrinkWrap: true,
+                  children: [
+                    for (final item in items)
+                      ListTile(
+                        onTap: () => onSelect(item.value),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16)),
+                        title: item,
+                      ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class BlurMenuItem extends StatelessWidget {
+  final String text;
+  final String value;
+  final bool? selected;
+  const BlurMenuItem(this.text, {Key? key, required this.value, this.selected})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            text,
+            style: const TextStyle(color: Colors.white, fontSize: 24),
+          ),
+          if (selected == true) const Spacer(),
+          if (selected == true)
+            const Icon(
+              Icons.check,
+              color: Colors.white,
+            ),
+        ],
+      ),
+    );
   }
 }

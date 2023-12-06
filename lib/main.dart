@@ -8,6 +8,7 @@ import 'package:second_choice_new/screens/profilepage.dart';
 import 'package:second_choice_new/screens/registration%20page.dart';
 import 'package:second_choice_new/screens/splash_screen.dart';
 import 'package:second_choice_new/trash.dart';
+import 'package:second_choice_new/trashmain/trash2.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(home: MyForm(),
+    return  MaterialApp(home: (),
     );
   }
 }

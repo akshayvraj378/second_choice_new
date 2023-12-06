@@ -27,6 +27,22 @@ class _BookState extends State<Book> {
     'kollam',
     'Thiruvananthapuram',
   ];
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  // Controllers for text fields
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _pincodeController = TextEditingController();
+  final TextEditingController _panController = TextEditingController();
+  final TextEditingController _aadhaarController = TextEditingController();
+  final TextEditingController _advanceAmountController =
+      TextEditingController();
+
+  RegExp nameRegExp = RegExp(r'^[a-zA-Z]+$');
+  RegExp pincodeRegExp = RegExp(r'^[1-9][0-9]{5}$');
+  RegExp panRegExp = RegExp(r'^[A-Z]{5}[0-9]{4}[A-Z]{1}$');
+  RegExp aadhaarRegExp = RegExp(r'^[0-9]{12}$');
+  RegExp advanceAmountRegExp = RegExp(r'^\d{5}$');
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +53,7 @@ class _BookState extends State<Book> {
           title: Text('Book Your Car'),
           centerTitle: true),
       body: Form(
+        key: _formKey,
         child: SizedBox(
             height: double.infinity,
             width: double.infinity,
@@ -68,8 +85,8 @@ class _BookState extends State<Book> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            Card(color: Colors.blueGrey[200],
-
+                            Card(
+                              color: Colors.blueGrey[200],
                               child: Column(children: [
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
@@ -99,7 +116,7 @@ class _BookState extends State<Book> {
                                       right: 8, bottom: 15, top: 1, left: 8),
                                   child: Row(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text('Total'),
                                       Text(
@@ -132,33 +149,57 @@ class _BookState extends State<Book> {
                       padding: const EdgeInsets.only(
                           left: 25, top: 7, bottom: 8, right: 25),
                       child: TextFormField(
+                        controller: _nameController,
                         decoration: InputDecoration(
                             hintText: 'Name*',
                             filled: true,
                             fillColor: Colors.white,
                             border: OutlineInputBorder()),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please Enter Your Name';
+                          } else if (!nameRegExp.hasMatch(value)) {
+                            return 'Please Enter A Valid Name';
+                          }
+                          return null;
+                        },
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
                           left: 25, top: 7, bottom: 8, right: 25),
                       child: TextFormField(
+                        controller: _addressController,
                         decoration: InputDecoration(
                             hintText: 'Address*',
                             filled: true,
                             fillColor: Colors.white,
                             border: OutlineInputBorder()),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please Enter Your Address';
+                          }
+                          return null;
+                        },
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
                           left: 25, top: 7, bottom: 8, right: 25),
-                      child: TextFormField(
+                      child: TextFormField(          controller: _pincodeController,
+
                         decoration: InputDecoration(
                             hintText: 'Pincode*',
                             filled: true,
                             fillColor: Colors.white,
-                            border: OutlineInputBorder()),
+                            border: OutlineInputBorder()), validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please Enter your PIN Code';
+                        } else if (!pincodeRegExp.hasMatch(value)) {
+                          return 'Please Enter A Valid PIN Code';
+                        }
+                        return null;
+                      },
                       ),
                     ),
                     Padding(
@@ -174,7 +215,7 @@ class _BookState extends State<Book> {
                           iconSize: 40,
                           style: TextStyle(color: Colors.white),
                           borderRadius: BorderRadius.circular(27),
-                   //       value: dropdownvalue,
+                          //       value: dropdownvalue,
                           icon: const Icon(Icons.keyboard_arrow_down),
                           items: items.map((String items) {
                             return DropdownMenuItem(
@@ -185,8 +226,8 @@ class _BookState extends State<Book> {
                           }).toList(),
                           onChanged: (String? newValue) {
                             setState(() {
-                            //  dropdownvalue = newValue!;
-                              Dist=newValue!;
+                              //  dropdownvalue = newValue!;
+                              Dist = newValue!;
                             });
                           },
                         ),
@@ -195,62 +236,96 @@ class _BookState extends State<Book> {
                     Padding(
                       padding: const EdgeInsets.only(
                           left: 25, top: 7, bottom: 8, right: 25),
-                      child: TextFormField(
+                      child: TextFormField(controller: _panController,
                         decoration: InputDecoration(
                             hintText: 'PAN Number*',
                             filled: true,
                             fillColor: Colors.white,
-                            border: OutlineInputBorder()),
+                            border: OutlineInputBorder()), validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please Upload Your PAN Number';
+                        }else if (!panRegExp.hasMatch(value)) {
+                          return 'Please Enter A Valid PAN Number';
+                        }
+                        return null;
+                      },
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
                           left: 25, top: 7, bottom: 8, right: 25),
                       child: TextFormField(
+                        controller: _aadhaarController,
                         decoration: InputDecoration(
                             hintText: 'AADHAAR Number*',
                             filled: true,
                             fillColor: Colors.white,
                             border: OutlineInputBorder()),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please Upload Your AADHAAR Number';
+                          }else if (!aadhaarRegExp.hasMatch(value)) {
+                            return 'Please Enter A Valid AADHAAR Number';
+                          }
+                          return null;
+                        },
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
                           left: 25, top: 7, bottom: 8, right: 25),
-                      child: TextFormField(
+                      child: TextFormField(controller: _advanceAmountController,
                         decoration: InputDecoration(
                             hintText: 'Advance Amount Eg:10000*',
                             filled: true,
                             fillColor: Colors.white,
                             border: OutlineInputBorder()),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please Enter Your Amount';
+                          }else if (!advanceAmountRegExp.hasMatch(value)) {
+                            return 'Please Enter More Than 10000';
+                          }
+                          return null;
+                        },
                       ),
                     ),
-                    SizedBox(width: double.infinity,height: 200,
+                    SizedBox(
+                      width: double.infinity,
+                      height: 200,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Column(
                               children: [
-                                Text('Upload your Adharcard',style: TextStyle(color: Colors.white)),
-                                SizedBox(width: 170,height: 160,
-                                  child: InkWell(onTap:() {
-
-                                  },
-                                    child: Card(color: Colors.white24,
+                                Text('Upload your Adharcard',
+                                    style: TextStyle(color: Colors.white)),
+                                SizedBox(
+                                  width: 170,
+                                  height: 160,
+                                  child: InkWell(
+                                    onTap: () {},
+                                    child: Card(
+                                      color: Colors.white24,
                                       child: Icon(Icons.image),
                                     ),
                                   ),
                                 )
                               ],
-                            ), Column(
+                            ),
+                            Column(
                               children: [
-                                Text('Upload your PAN Card',style: TextStyle(color: Colors.white)),
-                                SizedBox(width: 170,height: 160,
-                                  child: InkWell(onTap: () {
-
-                                  },
-                                    child: Card(color: Colors.white24,
+                                Text('Upload your PAN Card',
+                                    style: TextStyle(color: Colors.white)),
+                                SizedBox(
+                                  width: 170,
+                                  height: 160,
+                                  child: InkWell(
+                                    onTap: () {},
+                                    child: Card(
+                                      color: Colors.white24,
                                       child: Icon(Icons.image),
                                     ),
                                   ),
@@ -260,13 +335,33 @@ class _BookState extends State<Book> {
                           ],
                         ),
                       ),
-                    ),Padding(
+                    ),
+                    Padding(
                       padding: const EdgeInsets.all(30),
-                      child: Row(mainAxisAlignment: MainAxisAlignment.center,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          ElevatedButton(style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.brown),fixedSize: MaterialStatePropertyAll(Size(190, 50))),onPressed: () {
+                          ElevatedButton(
+                              style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStatePropertyAll(Colors.brown),
+                                  fixedSize:
+                                      MaterialStatePropertyAll(Size(190, 50))),
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  // Form is valid, perform necessary actions
+                                  // Access field values using controllers:
+                                  String name = _nameController.text;
+                                  String address = _addressController.text;
+                                  String pincode = _pincodeController.text;
+                                  String panNumber = _panController.text;
+                                  String aadhaarNumber = _aadhaarController.text;
+                                  String advanceAmount = _advanceAmountController.text;
 
-                          }, child: Text('proceed')),
+                                  // Perform actions with validated data here
+                                }
+                              },
+                              child: Text('proceed')),
                         ],
                       ),
                     )

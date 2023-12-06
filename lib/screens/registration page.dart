@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 
 import 'Log_in_page.dart';
-
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({super.key});
@@ -13,9 +13,12 @@ class RegistrationPage extends StatefulWidget {
 class _RegistrationPageState extends State<RegistrationPage> {
   final loginkey = GlobalKey<FormState>();
   bool pass = false;
-
+  String phoneNumber = '';
   var passwordController = TextEditingController();
-
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  RegExp nameRegExp =  RegExp(r'^[a-zA-Z]+$');
+  RegExp phoneRegExp =  RegExp(r'^(?:(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[6789]\d{9})$');
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -33,10 +36,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
             child: ListView(children: [
               Column(children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 290),
+                  padding: const EdgeInsets.only(top: 270),
                   child: Container(
                     width: 350,
-                    height: 320,
+                    height: 450,
                     decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(blurRadius: 20, color: Colors.black38)
@@ -58,6 +61,63 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             ),
                             Padding(
                               padding: const EdgeInsets.only(left: 20),
+                              child: Text('Name',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16)),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 19, right: 19),
+                              child: TextFormField(validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please Enter Your Name';
+                                }else if (!nameRegExp.hasMatch(value)) {
+                                  return 'Please Enter A Valid Name';
+                                }
+                                return null;
+                              },
+                                  decoration: InputDecoration(
+                                      hintText: 'Enter Your Name')),
+                            ),
+                            Padding(
+                             padding: const EdgeInsets.only(left: 20, top: 20),
+                              child: Text('Phone Number',
+                                style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16)),
+                             ),
+                            // Padding(
+                            //   padding:
+                            //       const EdgeInsets.only(left: 19, right: 19),
+                            //   child: TextFormField(
+                            //       validator: (value) {
+                            //         if (value == null || value.isEmpty) {
+                            //           return 'Please Enter Your Name';
+                            //         }else if (!phoneRegExp.hasMatch(value)) {
+                            //           return 'Please Enter A Valid Name';
+                            //         }
+                            //         return null;
+                            //       },
+                            //       decoration: InputDecoration(
+                            //           hintText: 'Enter Your Mobile number')),
+                            // ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 20,right: 20),
+                              child: IntlPhoneField(
+                                decoration: InputDecoration(
+                                  labelText: 'Phone Number',
+                                ),
+                                initialCountryCode: 'IN', // Set initial country code
+                                onChanged: (phone) {
+                                  setState(() {
+                                    phoneNumber = phone.completeNumber;
+                                  });
+                                },
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 20,),
                               child: Text('Email',
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
@@ -108,44 +168,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                     hintText: 'Enter your password'),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please confirm your password';
-                                  }
-                                  if (!RegExp(
-                                          r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,12}$')
-                                      .hasMatch(value)) {
-                                    return "Enter a valid password";
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 20, top: 20),
-                              child: Text('Confirm Password',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 16)),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 19, right: 19),
-                              child: TextFormField(
-                                obscureText: !pass,
-                                decoration: InputDecoration(
-                                    suffixIcon: IconButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          pass = !pass;
-                                        });
-                                      },
-                                      icon: Icon(pass
-                                          ? Icons.visibility
-                                          : Icons.visibility_off),
-                                    ),
-                                    hintText: 'Enter your password'),
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please confirm your password';
+                                    return 'Please enter your password';
                                   }
                                   return null;
                                 },
@@ -174,7 +197,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(30),
+                  padding: const EdgeInsets.all(14),
                   child: Column(
                     children: [
                       Row(
