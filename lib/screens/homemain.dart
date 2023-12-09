@@ -5,7 +5,6 @@ import 'package:second_choice_new/screens/settings_page.dart';
 
 import '../trash.dart';
 import 'home.dart';
-import 'mainpagesnavi.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -46,13 +45,9 @@ class _HomePageState extends State<HomePage> {
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        const Details(), // Details widget for car details
-                  ),
-                );
+              Navigator.push(context,  MaterialPageRoute(builder: (context) {
+                return Details();
+              },));
               },
               child: Card(
                 color: Colors.lightBlue[50],
@@ -193,21 +188,27 @@ class _HomePageState extends State<HomePage> {
               Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: ListTile(
-                  onTap: () {},
+                  onTap: () {
+                     Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(),));
+                  },
                   leading: Icon(Icons.home, color: Colors.green[100], size: 30),
                   title: Text('Home',
                       style: TextStyle(color: Colors.black, fontSize: 17)),
                 ),
               ),
               ListTile(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => Seti(),));
+                },
                 leading:
                     Icon(Icons.settings, color: Colors.brown[100], size: 30),
                 title: Text('Settings',
                     style: TextStyle(color: Colors.black, fontSize: 17)),
               ),
               ListTile(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => Prof(),));
+                },
                 leading: Icon(Icons.person,
                     color: Colors.indigoAccent[100], size: 30),
                 title: Text('Profile',

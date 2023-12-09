@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'mainpagesnavi.dart';
 
 class Prof extends StatefulWidget {
   const Prof({super.key});

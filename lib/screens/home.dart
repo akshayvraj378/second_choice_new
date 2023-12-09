@@ -10,6 +10,7 @@ class Details extends StatefulWidget {
 }
 
 class _DetailsState extends State<Details> {
+  bool showCustomBottomNavBar = true; // Set this flag based on your condition
   void makePhoneCall(String phoneNumber) async {
     String url = 'tel:$phoneNumber';
 
@@ -272,37 +273,44 @@ class _DetailsState extends State<Details> {
           ],
         ),
       ),
+
+
+
       bottomNavigationBar: NavigationBar(
-          height: 70,
-          backgroundColor: Colors.black,
-          destinations: [
-            SizedBox(
-              width: double.infinity,
-              height: double.infinity,
-              child: TextButton(
-                  style: ButtonStyle(
-                      side: MaterialStatePropertyAll(BorderSide.none),
-                      foregroundColor: MaterialStatePropertyAll(Colors.black),
-                      backgroundColor:
-                      MaterialStatePropertyAll(Colors.teal[300])),
-                  onPressed: () {
-                    makePhoneCall('9744151527');
-                  },
-                  child: Text('Lets Talk')),
+        height: 70,
+        backgroundColor: Colors.black,
+        destinations: [
+          SizedBox(
+            width: double.infinity,
+            height: double.infinity,
+            child: TextButton(
+              style: ButtonStyle(
+                side: MaterialStateProperty.all(BorderSide.none),
+                foregroundColor: MaterialStateProperty.all(Colors.black),
+                backgroundColor: MaterialStateProperty.all(Colors.teal[300]),
+              ),
+              onPressed: () {
+                makePhoneCall('9744151527');
+              },
+              child: Text('Lets Talk'),
             ),
-            SizedBox(
-                height: double.infinity,
-                width: double.infinity,
-                child: TextButton(
-                    style: ButtonStyle(
-                        foregroundColor: MaterialStatePropertyAll(Colors.black),
-                        backgroundColor:
-                        MaterialStatePropertyAll(Colors.grey[600])),
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => Book(),));
-                    },
-                    child: Text('Book Now')))
-          ]),
+          ),
+          SizedBox(
+            height: double.infinity,
+            width: double.infinity,
+            child: TextButton(
+              style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all(Colors.black),
+                backgroundColor: MaterialStateProperty.all(Colors.grey[600]),
+              ),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Book(),));
+              },
+              child: Text('Book Now'),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
