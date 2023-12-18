@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:second_choice_new/screens/profilepage.dart';
 import 'package:second_choice_new/screens/settings_page.dart';
 
-import '../trash.dart';
+import '../Bottumnavigationbar.dart';
 import 'home.dart';
 
 class HomePage extends StatefulWidget {

@@ -64,7 +64,7 @@ class _MoreThanThreeIconState extends State<MoreThanThreeIcon> {
         label: 'Home',
       ),
       BottomNavigationBarItem(
-        icon: Icon(Icons.search_rounded),
+        icon: Icon(Icons.settings),
         label: 'Search',
       ),
       BottomNavigationBarItem(

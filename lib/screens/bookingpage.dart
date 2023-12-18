@@ -35,8 +35,7 @@ class _BookState extends State<Book> {
   final TextEditingController _pincodeController = TextEditingController();
   final TextEditingController _panController = TextEditingController();
   final TextEditingController _aadhaarController = TextEditingController();
-  final TextEditingController _advanceAmountController =
-      TextEditingController();
+  final TextEditingController _advanceAmountController = TextEditingController();
 
   RegExp nameRegExp = RegExp(r'^[a-zA-Z]+$');
   RegExp pincodeRegExp = RegExp(r'^[1-9][0-9]{5}$');

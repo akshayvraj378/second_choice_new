@@ -8,7 +8,7 @@ import 'package:second_choice_new/screens/registration%20page.dart';
 import 'package:second_choice_new/screens/settings_page.dart';
 import 'package:second_choice_new/screens/splash_screen.dart';
 import 'package:second_choice_new/screens/tinuproject.dart';
-import 'package:second_choice_new/trash.dart';
+import 'package:second_choice_new/Bottumnavigationbar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,11 +21,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  MaterialApp(home: LoginPageUIchat(),
-      routes: {
-        '/page1': (_) => HomePage(),
-        '/page2': (_) => Seti(),
-        '/page3': (_) => Prof(),
-      },
+
     );
 
   }

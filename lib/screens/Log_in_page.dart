@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:second_choice_new/screens/registration%20page.dart';
 import 'package:second_choice_new/screens/tinuproject.dart';
 
-import '../trash.dart';
+import '../Bottumnavigationbar.dart';
 import 'forgot_password.dart';
 import 'homemain.dart';
 
